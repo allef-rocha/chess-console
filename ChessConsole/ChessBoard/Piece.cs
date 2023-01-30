@@ -2,7 +2,7 @@
 
 namespace ChessConsole.ChessBoard
 {
-    internal class Piece
+    abstract class Piece
     {
         public Board Board { get; set; }
         public Position Position { get; set; }
@@ -14,5 +14,7 @@ namespace ChessConsole.ChessBoard
             Position = position;
             Color = color;
         }
+        public abstract string Image();
+
     }
 }
