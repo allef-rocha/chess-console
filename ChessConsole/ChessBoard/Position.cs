@@ -13,13 +13,12 @@
             File = file;
             Rank = rank;
         }
-        public Position(string position)
+        public static Position? Parse(string position)
         {
             if (!ValidPosition(position))
-                throw new ArgumentException("Position must be on format \"[a-h][1-8]\"");
+                return null;
 
-            File = position[0] - 'a';
-            Rank = position[1] - '1';
+            return new Position(position[0] - 'a', position[1] - '1');
         }
 
         private static bool ValidPosition(string position)

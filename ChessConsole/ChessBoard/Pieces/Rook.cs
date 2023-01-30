@@ -4,7 +4,7 @@ namespace ChessConsole.ChessBoard.Pieces
 {
     internal class Rook : Piece
     {
-        public Rook(Board board, Position position, Color color) : base(board, position, color)
+        public Rook(Board board, Color color) : base(board, color)
         {
         }
         public override string Image()

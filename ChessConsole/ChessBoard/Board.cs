@@ -2,7 +2,7 @@
 {
     class Board
     {
-        public Piece[,] Pieces;
+        public Piece?[,] Pieces;
 
         private Board()
         {
@@ -20,13 +20,25 @@
             }
             return _instance;
         }
+
+        public Piece? RemovePiece(Position position)
+        {
+            Piece? piece = Pieces[position.Rank, position.File];
+            if (piece == null)
+            {
+                return piece;
+            }
+            Pieces[position.Rank, position.File] = null;
+            return piece;
+        }
+
         public void PutPiece(Piece piece, Position position)
         {
-            if (Pieces[position.File, position.Rank] != null)
+            if (Pieces[position.Rank, position.File] != null)
             {
                 throw new ArgumentException("Position occuped.");
             }
-            Pieces[position.File, position.Rank] = piece;
+            Pieces[position.Rank, position.File] = piece;
         }
     }
 }

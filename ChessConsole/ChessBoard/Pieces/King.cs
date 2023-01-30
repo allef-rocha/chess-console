@@ -4,7 +4,7 @@ namespace ChessConsole.ChessBoard.Pieces
 {
     internal class King : Piece
     {
-        public King(Board board, Position position, Color color) : base(board, position, color)
+        public King(Board board,  Color color) : base(board, color)
         {
         }
 
