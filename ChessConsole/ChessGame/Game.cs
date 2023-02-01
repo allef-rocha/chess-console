@@ -41,6 +41,11 @@ namespace ChessConsole.ChessGame
             return _instance;
         }
 
+        public void MakeMove(Position orig, Position dest)
+        {
+
+        }
+
         public void LoadFen(string fen)
         {
             if (!Fen.ValidFen(fen)) throw new ApplicationException("Invalid Fen");
@@ -66,7 +71,7 @@ namespace ChessConsole.ChessGame
                         file += pieceChar - '0';
                         continue;
                     }
-                    Piece piece = Piece.Parse(pieceChar, Board);
+                    Piece piece = Piece.Parse(pieceChar);
                     Board.PutPiece(piece, new(file, rank));
                     file++;
                 }
@@ -85,6 +90,11 @@ namespace ChessConsole.ChessGame
             MoveCount = int.Parse(moves);
             ClockCount = int.Parse(clock);
 
+        }
+
+        public Piece? GetPiece(Position position)
+        {
+            return Board.GetPiece(position);
         }
     }
 }

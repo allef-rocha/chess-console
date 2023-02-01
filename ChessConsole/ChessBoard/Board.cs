@@ -29,6 +29,7 @@
                 return piece;
             }
             Pieces[position.Rank, position.File] = null;
+            piece.Position = null;
             return piece;
         }
 
@@ -39,6 +40,13 @@
                 throw new ArgumentException("Position occuped.");
             }
             Pieces[position.Rank, position.File] = piece;
+            piece.Position = position;
         }
+
+        public Piece? GetPiece(Position position)
+        {
+            return Pieces[position.Rank, position.File];
+        }
+
     }
 }

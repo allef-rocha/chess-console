@@ -30,13 +30,12 @@
                 && position[1] <= '8';
 
         }
-        private static bool ValidPosition(int file, int rank)
+        public static bool ValidPosition(int file, int rank)
         {
             return file >= 0
                 && file <= 7
                 && rank >= 0
                 && rank <= 7;
-
         }
         public override string ToString()
         {

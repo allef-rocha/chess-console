@@ -10,6 +10,9 @@ namespace ChessConsole.ChessGame
         public static Regex FenRegex = new(_fenPattern);
         private static bool ValidBoard(string board)
         {
+            bool wking = false;
+            bool bking = false;
+
             string[] ranks = board.Split("/");
             foreach (string rank in ranks)
             {
@@ -17,14 +20,19 @@ namespace ChessConsole.ChessGame
                 foreach (char val in rank)
                 {
                     if (val >= '1' && val <= '8')
+                    {
                         count += val - '0';
+                        continue;
+                    }
+                    count++;
+
+                    if (val == 'k') if (bking) return false; else bking = true;
                     else
-                        count++;
+                    if (val == 'K') if (wking) return false; else wking = true;
                 }
                 if (count != 8) return false;
-                
             }
-            return true;
+            return wking && bking;
         }
         public static bool ValidFen(string fen)
         {

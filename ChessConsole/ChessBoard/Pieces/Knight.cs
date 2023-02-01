@@ -4,15 +4,37 @@ namespace ChessConsole.ChessBoard.Pieces
 {
     internal class Knight : Piece
     {
-        public Knight(Board board, Color color) : base(board,  color)
+        public Knight(Color color) : base(color)
         {
         }
 
         public override string Image()
         {
             return "\u265e";
-            //return Color == Color.White ? "\u2658" : "\u265e";
-            //return Color == Color.White ? "N " : "n ";
+            //return "N";
+        }
+        public override List<Position> PseudoMoves()
+        {
+            int r, f;
+            List<Position> result = new List<Position>();
+            if (CanGoTo(f = Position.File - 1, r = Position.Rank - 2))
+                result.Add(new(f,r));
+            if (CanGoTo(f = Position.File - 1, r = Position.Rank + 2))
+                result.Add(new(f,r));
+            if (CanGoTo(f = Position.File + 1, r = Position.Rank - 2))
+                result.Add(new(f,r));
+            if (CanGoTo(f = Position.File + 1, r = Position.Rank + 2))
+                result.Add(new(f,r));
+            if (CanGoTo(f = Position.File - 2, r = Position.Rank - 1))
+                result.Add(new(f,r));
+            if (CanGoTo(f = Position.File - 2, r = Position.Rank + 1))
+                result.Add(new(f,r));
+            if (CanGoTo(f = Position.File + 2, r = Position.Rank - 1))
+                result.Add(new(f,r));
+            if (CanGoTo(f = Position.File + 2, r = Position.Rank + 1))
+                result.Add(new(f,r));
+
+            return result;
         }
     }
 }
