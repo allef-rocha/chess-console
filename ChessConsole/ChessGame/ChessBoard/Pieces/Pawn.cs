@@ -66,12 +66,12 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
                         MoveType.Capture);
                     moves.Add(move);
                 }
-                if (Game.EnPassant != null && Game.EnPassant.Rank == rank && Game.EnPassant.File == file)
+                else if (Game.EnPassant != null && Game.EnPassant.Rank == rank && Game.EnPassant.File == file)
                 {
                     move = new Move(Position,
                             new(file, rank),
                             this,
-                            Board.Get(Game.EnPassant),
+                            Board.Get(Position.Rank,file),
                             MoveType.EnPassant);
                     moves.Add(move);
 
@@ -93,7 +93,7 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
                     move = new Move(Position,
                             new(file, rank),
                             this,
-                            Board.Get(Game.EnPassant),
+                            Board.Get(Position.Rank,file),
                             MoveType.EnPassant);
                     moves.Add(move);
                 }

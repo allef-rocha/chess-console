@@ -14,9 +14,9 @@ namespace ChessConsole
             try
             {
                 Game game = Game.GetInstance();
-                //game.LoadFen("rnbqkbnr/pppppppp/8/8/7b/8/PPPPP2P/RNBQKBNR w KQkq - 0 1");
                 //game.LoadFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
-                game.LoadFen("r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1");
+                //game.LoadFen("rnbqkbnr/pppppppp/8/8/7b/8/PPPPP2P/RNBQKBNR w KQkq - 0 1");
+                game.LoadFen("r3k2r/p6p/1N6/6P1/8/8/8/4K2R b KQkq - 0 1");
                 List<Move>[,] grid = new List<Move>[8, 8];
 
                 for (int i = 0; i < grid.Length; i++) { grid[i / 8, i % 8] = new List<Move>(); }
@@ -40,6 +40,7 @@ namespace ChessConsole
                     }
                     Console.Clear();
                     View.PrintBoard();
+
                     Console.Write(Game.Turn == Color.White ? "WHITE" : "BLACK");
                     Console.WriteLine(" to play");
 

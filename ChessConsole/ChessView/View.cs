@@ -42,6 +42,7 @@ namespace ChessConsole.ChessView
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("  A B C D E F G H");
             Console.ResetColor();
+            Console.ResetColor();
         }
     }
 

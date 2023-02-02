@@ -41,9 +41,24 @@ namespace ChessConsole.ChessGame
         public Piece? MakeMove(Move move)
         {
             Piece? captured = null;
-            bool castleKing = true;
-            bool castleQueen = true;
-            int foward = Turn == Color.White ? 1 : -1;
+            bool castleKing = true,
+                castleQueen = true,
+                otherCastleQueen = true,
+                otherCastleKing = true;
+
+            int foward, firstRank, lastRank;
+            if (Turn == Color.White)
+            {
+                foward = 1;
+                firstRank = 0;
+                lastRank = 7;
+            }
+            else
+            {
+                foward = -1;
+                firstRank = 7;
+                lastRank = 0;
+            }
             move.DoMove();
 
             EnPassant = null;
@@ -67,9 +82,9 @@ namespace ChessConsole.ChessGame
                     castleQueen = false;
                     break;
                 case 'R':
-                    if (move.From.File == 0)
+                    if (move.From.File == 0 && move.From.Rank == firstRank)
                         castleQueen = false;
-                    else if (move.From.File == 7)
+                    else if (move.From.File == 7 && move.From.Rank == firstRank)
                         castleKing = false;
                     break;
                 case 'P':
@@ -78,16 +93,26 @@ namespace ChessConsole.ChessGame
                 default:
                     break;
             }
-            if(Turn == Color.White)
+
+            if (move.To.File == 0 && move.To.File == lastRank)
+                otherCastleQueen = false;
+            else if (move.To.File == 7 && move.To.File == lastRank)
+                otherCastleKing = false;
+
+            if (Turn == Color.White)
             {
                 WhiteCastleKing &= castleKing;
                 WhiteCastleQueen &= castleQueen;
+                BlackCastleKing &= otherCastleKing;
+                BlackCastleQueen &= otherCastleQueen;
                 Turn = Color.Black;
             }
             else
             {
                 BlackCastleKing &= castleKing;
                 BlackCastleQueen &= castleQueen;
+                WhiteCastleKing &= otherCastleKing;
+                WhiteCastleQueen &= otherCastleQueen;
                 Turn = Color.White;
             }
             return captured;
@@ -170,7 +195,7 @@ namespace ChessConsole.ChessGame
             {
                 if (Board.Get(pos) is Knight) return true;
             }
-            
+
             int deltaRank = Turn == Color.White ? 1 : -1;
             Piece? pawn;
 
