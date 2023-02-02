@@ -1,4 +1,4 @@
-﻿namespace ChessConsole.ChessBoard
+﻿namespace ChessConsole.ChessGame.ChessBoard
 {
     internal class Position
     {
@@ -15,6 +15,7 @@
         }
         public static Position? Parse(string position)
         {
+            position = position.Trim().ToLower();
             if (!ValidPosition(position))
                 return null;
 
@@ -40,6 +41,15 @@
         public override string ToString()
         {
             return $"{(char)('a' + File)}{Rank + 1}";
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return this == null;
+            if (obj is not Position) return false;
+            Position pos = obj as Position;
+            return pos.Rank == Rank && pos.File == File; 
+
         }
     }
 }

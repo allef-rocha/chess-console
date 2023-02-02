@@ -1,15 +1,17 @@
-﻿using ChessConsole.ChessBoard;
-using ChessConsole.ChessBoard.Enums;
+﻿using ChessConsole.ChessGame;
+using ChessConsole.ChessGame.ChessBoard;
+using ChessConsole.ChessGame.ChessBoard.Pieces;
+using ChessConsole.ChessGame.Enums;
 
 namespace ChessConsole.ChessView
 {
     class View
     {
-        public static void PrintBoard(Board board)
+        public static void PrintBoard()
         {
-            PrintBoard(board, new bool[8, 8]);
+            PrintBoard(new bool[8, 8]);
         }
-        public static void PrintBoard(Board board, bool[,] highlight)
+        public static void PrintBoard(bool[,] highlight)
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             bool light = true;
@@ -19,7 +21,7 @@ namespace ChessConsole.ChessView
                 Console.Write($"{8 - i} ");
                 for (int j = 0; j < 8; j++)
                 {
-                    Piece p = board.Pieces[7 - i, j];
+                    Piece? p = Board.Get(7 - i, j);
 
                     if (light) Console.BackgroundColor = highlight[7 - i, j] ? ConsoleColor.Red : ConsoleColor.DarkGray;
                     else Console.BackgroundColor = highlight[7 - i, j] ? ConsoleColor.DarkRed : ConsoleColor.DarkGreen;

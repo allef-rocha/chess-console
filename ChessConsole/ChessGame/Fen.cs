@@ -1,5 +1,4 @@
-﻿using ChessConsole.ChessBoard;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace ChessConsole.ChessGame
 {

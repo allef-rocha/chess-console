@@ -1,11 +1,11 @@
-﻿using ChessConsole.ChessBoard.Enums;
-using ChessConsole.ChessBoard.Pieces;
+﻿using ChessConsole.ChessGame.ChessMove;
+using ChessConsole.ChessGame.Enums;
 
-namespace ChessConsole.ChessBoard
+namespace ChessConsole.ChessGame.ChessBoard.Pieces
 {
     abstract class Piece
     {
-        public static Board Board = Board.GetInstance();
+        public abstract char Symbol { get; }
         public Color Color { get; set; }
         public Position? Position { get; set; }
 
@@ -15,10 +15,10 @@ namespace ChessConsole.ChessBoard
             Position = null;
         }
 
-        protected bool CanGoTo(int file, int rank)
+        public bool CanGoTo(int file, int rank)
         {
             return Position.ValidPosition(file, rank)
-                && (Board.Pieces[rank, file] == null || Board.Pieces[rank, file].Color != Color);
+                && (Board.Get(rank, file) == null || Board.Get(rank, file).Color != Color);
         }
         public static Piece Parse(char pieceChar)
         {
@@ -53,7 +53,7 @@ namespace ChessConsole.ChessBoard
         }
         public abstract string Image();
 
-        public abstract List<Position> PseudoMoves();
+        public abstract List<Move> Moves();
 
     }
 }
