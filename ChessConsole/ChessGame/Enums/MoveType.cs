@@ -4,7 +4,6 @@
     {
         // All
         Commun,
-        Capture,
 
         // only Pawns
         DoubleStep,

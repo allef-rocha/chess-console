@@ -24,6 +24,10 @@ namespace ChessConsole.ChessGame
         public static int MoveCount { get; private set; }
         public static int ClockCount { get; private set; }
 
+        public static List<Piece> WhiteCaptures { get; private set; } = new List<Piece>();
+        public static List<Piece> BlackCaptures { get; private set; } = new List<Piece>();
+        public static int Eval { get;  set; } = 0;
+
         private Game()
         {
             Board = Board.GetInstance();
@@ -62,18 +66,15 @@ namespace ChessConsole.ChessGame
             move.DoMove();
 
             EnPassant = null;
-            switch (move.MoveType)
+
+            if(move.MoveType == MoveType.DoubleStep)
             {
-                case MoveType.Capture:
-                case MoveType.EnPassant:
-                    captured = move.Target;
-                    ClockCount = 0;
-                    break;
-                case MoveType.DoubleStep:
                     EnPassant = new(move.From.File, move.From.Rank + foward);
-                    break;
-                default:
-                    break;
+            }
+            if(move.Target != null)
+            {
+                captured = move.Target;
+                ClockCount = 0;
             }
             switch (move.Piece.Symbol)
             {
@@ -99,6 +100,20 @@ namespace ChessConsole.ChessGame
             else if (move.To.File == 7 && move.To.File == lastRank)
                 otherCastleKing = false;
 
+            if (captured != null)
+            {
+                if (Turn == Color.White)
+                    WhiteCaptures.Add(captured);
+                else
+                    BlackCaptures.Add(captured);
+
+                Eval += captured.Color == Color.White ? -captured.Value : captured.Value;
+                WhiteCaptures.Sort((a, b) => a.Sorter - b.Sorter);
+                BlackCaptures.Sort((a, b) => a.Sorter - b.Sorter);
+
+
+            }
+
             if (Turn == Color.White)
             {
                 WhiteCastleKing &= castleKing;
@@ -115,6 +130,7 @@ namespace ChessConsole.ChessGame
                 WhiteCastleQueen &= otherCastleQueen;
                 Turn = Color.White;
             }
+
             return captured;
         }
 
@@ -147,6 +163,7 @@ namespace ChessConsole.ChessGame
                     if (piece != null)
                     {
                         Board.Set(rank, file, piece);
+                        Eval += piece.Color == Color.White ? piece.Value : -piece.Value;
                         if (piece is King)
                         {
                             if (piece.Color == Color.White)

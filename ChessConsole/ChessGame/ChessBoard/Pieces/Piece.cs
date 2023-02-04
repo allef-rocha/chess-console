@@ -6,6 +6,8 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
     abstract class Piece
     {
         public abstract char Symbol { get; }
+        public abstract int Value { get; }
+        public abstract int Sorter { get; }
         public Color Color { get; set; }
         public Position? Position { get; set; }
 

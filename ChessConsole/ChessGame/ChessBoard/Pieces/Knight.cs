@@ -10,6 +10,8 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
         }
 
         public override char Symbol => 'N';
+        public override int Value => 3;
+        public override int Sorter => 2;
 
         public override string Image()
         {
@@ -27,7 +29,7 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
                     pos,
                     this,
                     target,
-                    target == null ? MoveType.Commun : MoveType.Capture);
+                    MoveType.Commun);
 
                 if (move.TestMove())
                     moves.Add(move);

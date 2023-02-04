@@ -10,6 +10,8 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
         }
 
         public override char Symbol => 'P';
+        public override int Value => 1;
+        public override int Sorter => 1;
 
         public override string Image()
         {
@@ -34,7 +36,7 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
             }
 
             Move move;
-            if (Board.Get(rank = rank+deltaRank, file) == null)
+            if (Board.Get(rank = rank + deltaRank, file) == null)
             {
                 move = new Move(Position,
                     new(file, rank),
@@ -42,7 +44,7 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
                     null,
                     rank == lastRank ? MoveType.Promotion : MoveType.Commun);
                 moves.Add(move);
-                if (Position.Rank == firstRank && Board.Get(rank = rank+deltaRank, file) == null)
+                if (Position.Rank == firstRank && Board.Get(rank = rank + deltaRank, file) == null)
                 {
                     move = new Move(Position,
                     new(file, rank),
@@ -63,7 +65,7 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
                         new(file, rank),
                         this,
                         target,
-                        MoveType.Capture);
+                        rank == lastRank ? MoveType.Promotion : MoveType.Commun);
                     moves.Add(move);
                 }
                 else if (Game.EnPassant != null && Game.EnPassant.Rank == rank && Game.EnPassant.File == file)
@@ -71,7 +73,7 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
                     move = new Move(Position,
                             new(file, rank),
                             this,
-                            Board.Get(Position.Rank,file),
+                            Board.Get(Position.Rank, file),
                             MoveType.EnPassant);
                     moves.Add(move);
 
@@ -85,7 +87,7 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
                         new(file, rank),
                         this,
                         target,
-                        MoveType.Capture);
+                        rank == lastRank ? MoveType.Promotion : MoveType.Commun);
                     moves.Add(move);
                 }
                 if (Game.EnPassant != null && Game.EnPassant.Rank == rank && Game.EnPassant.File == file)
@@ -93,7 +95,7 @@ namespace ChessConsole.ChessGame.ChessBoard.Pieces
                     move = new Move(Position,
                             new(file, rank),
                             this,
-                            Board.Get(Position.Rank,file),
+                            Board.Get(Position.Rank, file),
                             MoveType.EnPassant);
                     moves.Add(move);
                 }
